@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak-internal-cert
+  namespace: default
+spec:
+  secretName: keycloak-tls
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+  commonName: example-kc-service.default.svc.cluster.local
+  dnsNames:
+    - example-kc-service.default.svc.cluster.local
+    - example-kc-service
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+
