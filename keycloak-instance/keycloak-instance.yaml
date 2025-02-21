@@ -15,8 +15,11 @@ spec:
       key: password
   http:
     httpEnabled: true
-    tlsSecret: keycloak-tls
+    tlsSecret: local-cluster-tls
   hostname:
-    hostname: keycloak.local.amazinglyabstract.it
+    hostname: https://keycloak.local.amazinglyabstract.it
+    backchannelDynamic: true
   proxy:
     headers: xforwarded
+  ingress:
+    enabled: true

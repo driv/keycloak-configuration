@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- keycloak.yaml
-- database.yaml
-- provider-keycloak.yaml
+- keycloak-instance/keycloak-instance.yaml
+- keycloak-instance/database.yaml
+- keycloak-instance/keycloak-ingress.yaml
+- keycloak-provisioning/provider-keycloak-admin.yaml
+- keycloak-provisioning/keycloak-client-config.yaml

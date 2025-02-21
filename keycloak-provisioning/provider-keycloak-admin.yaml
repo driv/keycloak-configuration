@@ -4,12 +4,12 @@ metadata:
   name: provider-keycloak
   namespace: crossplane-system
 spec:
-  package: xpkg.upbound.io/crossplane-contrib/provider-keycloak:v1.5.0
+  package: xpkg.upbound.io/crossplane-contrib/provider-keycloak:v1.11.0
 ---
 apiVersion: keycloak.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: keycloak-provider-config
+  name: sdlcbox
 spec:
   credentials:
     source: Secret
@@ -29,9 +29,8 @@ type: Opaque
 stringData:
   credentials: |
     {
-      "client_id":"admin-cli",
-      "username": "federiconafria",
-      "password": "69b28df306754cb5901cc296de96bb82",
+      "client_id":"crossplane",
+      "client_secret": "WZKa25YAZsqX8nIMqPAd8paengrnILHh",
       "url": "http://example-kc-service.default.svc.cluster.local:8080",
-      "realm": "master"
+      "realm": "sdlcbox"
     }

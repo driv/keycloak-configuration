@@ -1,0 +1,121 @@
+apiVersion: openidclient.keycloak.crossplane.io/v1alpha1
+kind: Client
+metadata:
+  name: grafana
+spec:
+  forProvider:
+    accessType: CONFIDENTIAL
+    adminUrl: https://grafana.local.amazinglyabstract.it/
+    clientId: grafana
+    directAccessGrantsEnabled: true
+    name: grafana
+    realmId: "sdlcbox"
+    baseUrl: https://grafana.local.amazinglyabstract.it/
+    standardFlowEnabled: true
+    validPostLogoutRedirectUris:
+      - https://grafana.local.amazinglyabstract.it/login
+    validRedirectUris:
+      - https://grafana.local.amazinglyabstract.it/login/generic_oauth
+    webOrigins:
+      - https://grafana.local.amazinglyabstract.it/
+  providerConfigRef:
+    name: sdlcbox
+  writeConnectionSecretToRef:
+    name: grafana-oauth-client
+    namespace: monitoring
+---
+apiVersion: openidclient.keycloak.crossplane.io/v1alpha1
+kind: ClientDefaultScopes
+metadata:
+  name: grafana
+spec:
+  forProvider:
+    clientIdRef: 
+      name: grafana
+    realmId: "sdlcbox"
+    defaultScopes:
+    - openid
+  providerConfigRef:
+    name: sdlcbox
+#JAVA_OPTS_APPEND="-Djgroups.bind.port=8888 -Djgroups.dns.query=10.96.190.201:8080" /opt/keycloak/bin/kc.sh export --file /tmp/export.json; cat tmp/export.json
+---
+apiVersion: openidclient.keycloak.crossplane.io/v1alpha1
+kind: ClientOptionalScopes
+metadata:
+  name: grafana
+spec:
+  forProvider:
+    clientIdRef: 
+      name: grafana
+    realmId: "sdlcbox"
+    optionalScopes: 
+    - email
+    - profile
+    - offline_access
+    - roles
+  providerConfigRef:
+    name: sdlcbox
+---
+apiVersion: role.keycloak.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: grafana-viewer
+spec:
+  forProvider:
+    clientIdRef:
+      name: grafana
+    realmId: "sdlcbox"
+    name: viewer
+  providerConfigRef:
+    name: sdlcbox
+---
+apiVersion: role.keycloak.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: grafana-editor
+spec:
+  forProvider:
+    clientIdRef:
+      name: grafana
+    realmId: "sdlcbox"
+    name: editor
+  providerConfigRef:
+    name: sdlcbox
+---
+apiVersion: role.keycloak.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: grafana-admin
+spec:
+  forProvider:
+    clientIdRef:
+      name: grafana
+    realmId: "sdlcbox"
+    name: admin
+  providerConfigRef:
+    name: sdlcbox
+---
+apiVersion: client.keycloak.crossplane.io/v1alpha1
+kind: ProtocolMapper
+metadata:
+  name: client-role
+spec:
+  forProvider:
+    clientIdRef:
+      name: grafana
+    name: "client roles"
+    realmId: "sdlcbox"
+    protocol: "openid-connect"
+    protocolMapper: "oidc-usermodel-client-role-mapper"
+    config: {
+        "introspection.token.claim" : "false",
+        "multivalued" : "true",
+        "userinfo.token.claim" : "true",
+        "id.token.claim" : "false",
+        "lightweight.claim" : "false",
+        "access.token.claim" : "false",
+        "claim.name" : "resource_access.${client_id}.roles",
+        "jsonType.label" : "String"
+    }
+  providerConfigRef:
+    name: sdlcbox
