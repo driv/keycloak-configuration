@@ -4,6 +4,8 @@ ingress:
   hosts:
     - grafana.local.amazinglyabstract.it
 grafana.ini:
+  security:
+    strict_transport_security: false
   debug: true
   server:
     root_url: https://grafana.local.amazinglyabstract.it/
@@ -12,7 +14,6 @@ grafana.ini:
     name: Keycloak-OAuth
     allow_sign_up: true
     client_id: grafana
-    # client_secret: rR56aSKiuZeacqp0ZRSB4BQZnmwQgpCF
     scopes: openid email profile offline_access roles
     email_attribute_path: email
     login_attribute_path: preferred_username
@@ -20,8 +21,6 @@ grafana.ini:
     auth_url: https://keycloak.local.amazinglyabstract.it/realms/sdlcbox/protocol/openid-connect/auth
     token_url: http://example-kc-service.default.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/token
     api_url: http://example-kc-service.default.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/userinfo
-      #    role_attribute_path: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
-      #role_attribute_path: contains(resource_access.grafana-oauth.roles[*], 'admin') && 'Admin' || contains(resource_access.grafana-oauth.roles[*], 'editor') && 'Editor' || contains(realm_access.roles[*], 'viewer') && 'Viewer' || 'Editor'
     role_attribute_strict: true
     role_attribute_path: >
        contains("resource_access"."grafana".roles[*], 'admin') && 'Admin' ||
@@ -37,4 +36,4 @@ envValueFrom:
     secretKeyRef:
       key: "attribute.client_secret"
       name: grafana-oauth-client
-      optional: false
+      optional: true
