@@ -1,6 +1,8 @@
 repositories:
   - name: grafana
     url: https://grafana.github.io/helm-charts
+  - name: crossplane-stable
+    url: https://charts.crossplane.io/stable
 
 releases:
   - name: my-grafana
@@ -9,3 +11,7 @@ releases:
     values:
       - grafana-values.yaml
     version: 8.8.4
+  - name: crossplane
+    namespace: crossplane-system
+    chart: crossplane-stable/crossplane
+    createNamespace: true

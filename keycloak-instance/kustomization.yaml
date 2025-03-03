@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/part-of: keycloak-demo
+namespace: keycloak
+resources:
+- https://raw.githubusercontent.com/keycloak/keycloak-k8s-resources/26.1.2/kubernetes/kubernetes.yml
+- keycloak-instance.yaml
+- database.yaml
+- keycloak-ingress.yaml
+- keycloak-db-secret.yaml

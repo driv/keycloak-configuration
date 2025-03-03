@@ -19,8 +19,8 @@ grafana.ini:
     login_attribute_path: preferred_username
     name_attribute_path: full_name
     auth_url: https://keycloak.local.amazinglyabstract.it/realms/sdlcbox/protocol/openid-connect/auth
-    token_url: http://example-kc-service.default.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/token
-    api_url: http://example-kc-service.default.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/userinfo
+    token_url: http://keycloak-instance-service.keycloak.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/token
+    api_url: http://keycloak-instance-service.keycloak.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/userinfo
     role_attribute_strict: true
     role_attribute_path: >
        contains("resource_access"."grafana".roles[*], 'admin') && 'Admin' ||

@@ -29,8 +29,8 @@ type: Opaque
 stringData:
   credentials: |
     {
-      "client_id":"crossplane",
+      "client_id":"admin-client",
       "client_secret": "WZKa25YAZsqX8nIMqPAd8paengrnILHh",
-      "url": "http://example-kc-service.default.svc.cluster.local:8080",
-      "realm": "sdlcbox"
+      "url": "http://keycloak-instance-service.keycloak.svc.cluster.local:8080",
+      "realm": "master"
     }

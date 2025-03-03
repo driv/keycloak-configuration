@@ -1,3 +1,13 @@
+apiVersion: realm.keycloak.crossplane.io/v1alpha1
+kind: Realm
+metadata:
+  name: sdlcbox
+spec:
+  forProvider:
+    realm: sdlcbox
+  providerConfigRef:
+    name: sdlcbox
+---
 apiVersion: openidclient.keycloak.crossplane.io/v1alpha1
 kind: Client
 metadata:
@@ -37,7 +47,6 @@ spec:
     - openid
   providerConfigRef:
     name: sdlcbox
-#JAVA_OPTS_APPEND="-Djgroups.bind.port=8888 -Djgroups.dns.query=10.96.190.201:8080" /opt/keycloak/bin/kc.sh export --file /tmp/export.json; cat tmp/export.json
 ---
 apiVersion: openidclient.keycloak.crossplane.io/v1alpha1
 kind: ClientOptionalScopes
