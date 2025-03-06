@@ -1,0 +1,9 @@
+repositories:
+  - name: crossplane-stable
+    url: https://charts.crossplane.io/stable
+
+releases:
+  - name: crossplane
+    namespace: crossplane-system
+    chart: crossplane-stable/crossplane
+    createNamespace: true

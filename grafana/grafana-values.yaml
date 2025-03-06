@@ -1,0 +1,39 @@
+assertNoLeakedSecrets: false
+ingress:
+  enabled: true
+  hosts:
+    - grafana.local.amazinglyabstract.it
+grafana.ini:
+  security:
+    strict_transport_security: false
+  debug: true
+  server:
+    root_url: https://grafana.local.amazinglyabstract.it/
+  auth.generic_oauth:
+    enabled: true
+    name: Keycloak-OAuth
+    allow_sign_up: true
+    client_id: grafana
+    scopes: openid email profile offline_access roles
+    email_attribute_path: email
+    login_attribute_path: preferred_username
+    name_attribute_path: full_name
+    auth_url: https://keycloak.local.amazinglyabstract.it/realms/sdlcbox/protocol/openid-connect/auth
+    token_url: http://keycloak-instance-service.keycloak.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/token
+    api_url: http://keycloak-instance-service.keycloak.svc.cluster.local:8080/realms/sdlcbox/protocol/openid-connect/userinfo
+    role_attribute_strict: true
+    role_attribute_path: >
+       contains("resource_access"."grafana".roles[*], 'admin') && 'Admin' ||
+       contains("resource_access"."grafana".roles[*], 'editor') && 'Editor' ||
+       contains("resource_access"."grafana".roles[*], 'viewer') && 'Viewer' ||
+       'INVALID'
+  log:
+    mode: console
+    level: debug
+
+envValueFrom:
+  GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+    secretKeyRef:
+      key: "attribute.client_secret"
+      name: grafana-oauth-client
+      optional: true
