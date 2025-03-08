@@ -16,7 +16,6 @@ spec:
       key: password
   http:
     httpEnabled: true
-    # tlsSecret: local-cluster-tls
   hostname:
     hostname: https://keycloak.local.amazinglyabstract.it
     backchannelDynamic: true
