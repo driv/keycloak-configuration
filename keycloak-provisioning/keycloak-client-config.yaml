@@ -19,7 +19,6 @@ spec:
     clientId: grafana
     directAccessGrantsEnabled: true
     name: grafana
-    realmId: "sdlcbox"
     baseUrl: https://grafana.local.amazinglyabstract.it/
     standardFlowEnabled: true
     validPostLogoutRedirectUris:
@@ -28,6 +27,8 @@ spec:
       - https://grafana.local.amazinglyabstract.it/login/generic_oauth
     webOrigins:
       - https://grafana.local.amazinglyabstract.it/
+    realmIdRef:
+      name: "sdlcbox"
   providerConfigRef:
     name: sdlcbox
   writeConnectionSecretToRef:
@@ -42,7 +43,8 @@ spec:
   forProvider:
     clientIdRef: 
       name: grafana
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     defaultScopes:
     - openid
   providerConfigRef:
@@ -56,7 +58,8 @@ spec:
   forProvider:
     clientIdRef: 
       name: grafana
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     optionalScopes: 
     - email
     - profile
@@ -73,7 +76,8 @@ spec:
   forProvider:
     clientIdRef:
       name: grafana
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     name: viewer
   providerConfigRef:
     name: sdlcbox
@@ -86,7 +90,8 @@ spec:
   forProvider:
     clientIdRef:
       name: grafana
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     name: editor
   providerConfigRef:
     name: sdlcbox
@@ -99,7 +104,8 @@ spec:
   forProvider:
     clientIdRef:
       name: grafana
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     name: admin
   providerConfigRef:
     name: sdlcbox
@@ -113,7 +119,8 @@ spec:
     clientIdRef:
       name: grafana
     name: "client roles"
-    realmId: "sdlcbox"
+    realmIdRef:
+      name: "sdlcbox"
     protocol: "openid-connect"
     protocolMapper: "oidc-usermodel-client-role-mapper"
     config: {
